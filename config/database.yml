@@ -1,0 +1,42 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: 3331
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  <<: *default
+  database: new_run2_development
+  host: localhost
+  
+test:
+  <<: *default
+  database: new_run2_test
+
+production:
+#   primary: &primary_production
+#     <<: *default
+#     database: new_run2_production
+#     username: new_run2
+#     password: <%= ENV["NEW_RUN2_DATABASE_PASSWORD"] %>
+#   cache:
+#     <<: *primary_production
+#     database: new_run2_production_cache
+#     migrations_paths: db/cache_migrate
+#   queue:
+#     <<: *primary_production
+#     database: new_run2_production_queue
+#     migrations_paths: db/queue_migrate
+#   cable:
+#     <<: *primary_production
+#     database: new_run2_production_cable
+#     migrations_paths: db/cable_migrate
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
